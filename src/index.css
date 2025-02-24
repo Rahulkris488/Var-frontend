@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit&family=Patua+One&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.let{
+    
+        font-family: "Kanit", serif;
+        font-weight: 300;
+        font-style: normal;
+      
+      
+  }
+  
+
+.var {
+    font-family: "Kanit", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+ 
+  
