@@ -1,12 +1,46 @@
 import React from 'react'
+import { useState, useEffect } from "react";
+
 
 const Body = () => {
+
+  const words = ["mini", "major"];
+  const [text, setText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [charIndex, setCharIndex] = useState(0);
+
+  useEffect(() => {
+    const typingSpeed = isDeleting ? 100 : 200; // Speed up deleting effect
+    const word = words[wordIndex];
+
+    if (!isDeleting && charIndex === word.length) {
+      setTimeout(() => setIsDeleting(true), 1000); // Pause before deleting
+    } else if (isDeleting && charIndex === 0) {
+      setIsDeleting(false);
+      setWordIndex((prev) => (prev + 1) % words.length);
+    }
+
+    const timeout = setTimeout(() => {
+      setText(word.substring(0, charIndex + (isDeleting ? -1 : 1)));
+      setCharIndex((prev) => prev + (isDeleting ? -1 : 1));
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, wordIndex]);
+
+
+  
+  
+
+  
+
   return (
     <div className=' mt-10  '>
 
       <div className='font-extrabold flex items-center justify-center text-6xl  '>
         <h1>Want Us to build <span className='transform hover:scale-105 hover:-translate-y-1px from-pink-900 to-blue-900 bg-gradient-to-r text-transparent bg-clip-text transition-all duration-3  00 
-                   hover:from-cyan-900 hover:to-green-900 font-serif'>your</span> mini project ?</h1>
+                   hover:from-cyan-900 hover:to-green-900 font-serif'>your</span> <span className=' overflow-hidden whitespace-nowrap border-r-2 border-black ' >{text}</span> project ?</h1>
       </div>
       <div className='flex justify-center items-center p-1 mt-10 text-3xl font-mono '>
         <div className='let'>Let us help You with that !</div>
