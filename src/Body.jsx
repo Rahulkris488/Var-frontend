@@ -378,7 +378,7 @@ export default function App() {
                <button className={`h-4 w-4 border-2 flex justify-center items-center text-xs font-bold ${themeClasses.titleBarButton} shadow-none`}>X</button>
             </div>
           </div>
-          {tab.component && <div className="w-full sdsdsdadasdasd h-40 mt-1">{tab.component}</div>}
+          {tab.component && <div className="w-full  h-40 mt-1">{tab.component}</div>}
         </div>
       ))}ikuhliuyh
       
