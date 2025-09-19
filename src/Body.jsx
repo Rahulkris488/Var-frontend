@@ -378,13 +378,13 @@ export default function App() {
                <button className={`h-4 w-4 border-2 flex justify-center items-center text-xs font-bold ${themeClasses.titleBarButton} shadow-none`}>X</button>
             </div>
           </div>
-          {tab.component && <div className="w-full h-40 mt-1">{tab.component}</div>}
+          {tab.component && <div className="w-full sdsda h-40 mt-1">{tab.component}</div>}
         </div>
-      ))}
+      ))}ikuhliuyh
       
       <div className={`w-full max-w-4xl border-4 rounded-sm overflow-hidden flex flex-col min-h-[600px] h-[90vh] relative z-20 transition-all duration-500 ${themeClasses.window} glass-morphism`}>
         <div className={`flex items-center justify-between p-1 border-b-4 cursor-move ${themeClasses.titleBar}`}>
-          <span className="text-white font-bold tracking-wider text-xl pl-2 font-pixel">VAR_Portfolio.exe</span>
+          <span className="text-white font-bold tracking-wider text-xl pl-2 font-pixel">VAR.exe</span>
           <div className="flex gap-1">
             <button className={`h-5 w-5 border-2 flex justify-center items-center text-sm font-bold transform hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-100 ${themeClasses.titleBarButton}`}>☐</button>
             <button className={`h-5 w-5 border-2 flex justify-center items-center text-sm font-bold transform hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-100 ${themeClasses.titleBarButton}`}>X</button>
