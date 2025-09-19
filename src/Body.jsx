@@ -380,7 +380,7 @@ export default function App() {
           </div>
           {tab.component && <div className="w-full h-40 mt-1">{tab.component}</div>}
         </div>
-      ))}ikuhliuyh
+      ))}
       
       <div className={`w-full max-w-4xl border-4 rounded-sm overflow-hidden flex flex-col min-h-[600px] h-[90vh] relative z-20 transition-all duration-500 ${themeClasses.window} glass-morphism`}>
         <div className={`flex items-center justify-between p-1 border-b-4 cursor-move ${themeClasses.titleBar}`}>
