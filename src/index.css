@@ -5,6 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+*{
+  background-color: ;
+}
+
 .let{
     
         font-family: "Kanit", serif;
