@@ -34,7 +34,7 @@ export default function App() {
 
     try {
       // This URL points to the backend server you will create.
-      const response = await fetch('http://localhost:5000/api/send', { 
+      const response = await fetch('https://var-backend-yhov.onrender.com/', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
