@@ -6,7 +6,7 @@ export default function App() {
 
   // State for theme management (false = light mode, true = dark mode)
   const [isDarkMode, setIsDarkMode] = useState(false);
-  
+
   // State to track if the GSAP library and its plugins are loaded
   const [gsapReady, setGsapReady] = useState(false);
 
@@ -82,13 +82,13 @@ export default function App() {
 
       // Scroll-triggered animations within the main window
       const scrollContainer = ".scroll-container";
-      
+
       // Animate main heading
       window.gsap.from(".main-heading-anim", {
         scrollTrigger: { scroller: scrollContainer, trigger: ".main-heading-anim", start: "top 80%" },
         scale: 0.8, opacity: 0, duration: 1, ease: "back.out(1.7)"
       });
-      
+
       // Animate challenge box
       window.gsap.from(".challenge-box-anim", {
         scrollTrigger: { scroller: scrollContainer, trigger: ".challenge-box-anim", start: "top 85%" },
@@ -97,7 +97,7 @@ export default function App() {
 
     }
   }, [gsapReady]);
-  
+
   // Main heading typing animation
   useEffect(() => {
     const fullWord = words[wordIndex];
@@ -116,7 +116,7 @@ export default function App() {
     }
     return () => clearTimeout(timeoutId);
   }, [text, isDeleting, wordIndex, words]);
-  
+
   // GSAP smooth scroll for navigation
   const handleNavClick = (e) => {
     e.preventDefault();
@@ -132,94 +132,94 @@ export default function App() {
 
   // --- Animated Window Components ---
 
-    const AnimatedPaint = () => {
-        const canvasRef = useRef(null);
-        useEffect(() => {
-            const canvas = canvasRef.current;
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const colors = ['#e91e63', '#2196f3', '#4caf50', '#ffc107', '#9c27b0'];
-            let x = Math.random() * canvas.width;
-            let y = Math.random() * canvas.height;
-            const interval = setInterval(() => {
-                const nextX = Math.random() * canvas.width;
-                const nextY = Math.random() * canvas.height;
-                ctx.strokeStyle = colors[Math.floor(Math.random() * colors.length)];
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(x, y);
-                ctx.lineTo(nextX, nextY);
-                ctx.stroke();
-                x = nextX;
-                y = nextY;
-            }, 500);
-            return () => clearInterval(interval);
-        }, []);
-        return <canvas ref={canvasRef} className="w-full h-full bg-white rounded-b-sm" />;
-    };
+  const AnimatedPaint = () => {
+    const canvasRef = useRef(null);
+    useEffect(() => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const colors = ['#e91e63', '#2196f3', '#4caf50', '#ffc107', '#9c27b0'];
+      let x = Math.random() * canvas.width;
+      let y = Math.random() * canvas.height;
+      const interval = setInterval(() => {
+        const nextX = Math.random() * canvas.width;
+        const nextY = Math.random() * canvas.height;
+        ctx.strokeStyle = colors[Math.floor(Math.random() * colors.length)];
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(nextX, nextY);
+        ctx.stroke();
+        x = nextX;
+        y = nextY;
+      }, 500);
+      return () => clearInterval(interval);
+    }, []);
+    return <canvas ref={canvasRef} className="w-full h-full bg-white rounded-b-sm" />;
+  };
 
-    const AnimatedTextEditor = () => {
-        const lines = ["// Initializing portfolio...", "const name = 'inwoq';", "const skills = ['React', 'GSAP', 'Tailwind'];", "function createAwesomeSite() {", "  return 'Done!';", "}"];
-        const [currentLine, setCurrentLine] = useState("");
-        const [lineIndex, setLineIndex] = useState(0);
-        useEffect(() => {
-            if (lineIndex >= lines.length) {
-                setTimeout(() => setLineIndex(0), 3000); // loop
-                return;
-            };
-            const timeout = setTimeout(() => {
-                setCurrentLine(lines[lineIndex].substring(0, currentLine.length + 1));
-                if (currentLine.length === lines[lineIndex].length) {
-                    setLineIndex(lineIndex + 1);
-                    setCurrentLine("");
-                }
-            }, 100);
-            return () => clearTimeout(timeout);
-        }, [currentLine, lineIndex, lines]);
+  const AnimatedTextEditor = () => {
+    const lines = ["// Initializing portfolio...", "const name = 'inwoq';", "const skills = ['React', 'GSAP', 'Tailwind'];", "function createAwesomeSite() {", "  return 'Done!';", "}"];
+    const [currentLine, setCurrentLine] = useState("");
+    const [lineIndex, setLineIndex] = useState(0);
+    useEffect(() => {
+      if (lineIndex >= lines.length) {
+        setTimeout(() => setLineIndex(0), 3000); // loop
+        return;
+      };
+      const timeout = setTimeout(() => {
+        setCurrentLine(lines[lineIndex].substring(0, currentLine.length + 1));
+        if (currentLine.length === lines[lineIndex].length) {
+          setLineIndex(lineIndex + 1);
+          setCurrentLine("");
+        }
+      }, 100);
+      return () => clearTimeout(timeout);
+    }, [currentLine, lineIndex, lines]);
 
-        return (
-            <div className="bg-gray-900 text-lime-400 h-full p-2 font-mono text-xs overflow-hidden rounded-b-sm">
-                {lines.slice(0, lineIndex).map((line, i) => <div key={i}>{line}</div>)}
-                <div>{currentLine}<span className="animate-blink border-r-2 border-lime-400"></span></div>
-            </div>
-        );
-    };
+    return (
+      <div className="bg-gray-900 text-lime-400 h-full p-2 font-mono text-xs overflow-hidden rounded-b-sm">
+        {lines.slice(0, lineIndex).map((line, i) => <div key={i}>{line}</div>)}
+        <div>{currentLine}<span className="animate-blink border-r-2 border-lime-400"></span></div>
+      </div>
+    );
+  };
 
-    const AnimatedTerminal = () => {
-        const [output, setOutput] = useState([]);
-        const commands = ["ls -a", "Portfolio/", "README.md", "npm start", "Compiling...", "Done."];
-        useEffect(() => {
-            let i = 0;
-            const interval = setInterval(() => {
-                if (i < commands.length) {
-                    setOutput(prev => [...prev, commands[i]]);
-                    i++;
-                } else {
-                    clearInterval(interval);
-                }
-            }, 1000);
-            return () => clearInterval(interval);
-        }, []);
-        return (
-            <div className="bg-black text-green-500 h-full p-2 font-mono text-xs overflow-y-auto rounded-b-sm">
-                {output.map((line, i) => <p key={i}>{'>'} {line}</p>)}
-                <div className="animate-blink h-3 w-1.5 bg-green-500"></div>
-            </div>
-        );
-    };
+  const AnimatedTerminal = () => {
+    const [output, setOutput] = useState([]);
+    const commands = ["ls -a", "Portfolio/", "README.md", "npm start", "Compiling...", "Done."];
+    useEffect(() => {
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < commands.length) {
+          setOutput(prev => [...prev, commands[i]]);
+          i++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 1000);
+      return () => clearInterval(interval);
+    }, []);
+    return (
+      <div className="bg-black text-green-500 h-full p-2 font-mono text-xs overflow-y-auto rounded-b-sm">
+        {output.map((line, i) => <p key={i}>{'>'} {line}</p>)}
+        <div className="animate-blink h-3 w-1.5 bg-green-500"></div>
+      </div>
+    );
+  };
 
-    const AnimatedClock = () => {
-        const [time, setTime] = useState(new Date());
-        useEffect(() => {
-            const timer = setInterval(() => setTime(new Date()), 1000);
-            return () => clearInterval(timer);
-        }, []);
-        return (
-            <div className="bg-gray-900 text-cyan-400 h-full p-2 font-pixel text-2xl flex items-center justify-center rounded-b-sm">
-                {time.toLocaleTimeString()}
-            </div>
-        )
-    };
+  const AnimatedClock = () => {
+    const [time, setTime] = useState(new Date());
+    useEffect(() => {
+      const timer = setInterval(() => setTime(new Date()), 1000);
+      return () => clearInterval(timer);
+    }, []);
+    return (
+      <div className="bg-gray-900 text-cyan-400 h-full p-2 font-pixel text-2xl flex items-center justify-center rounded-b-sm">
+        {time.toLocaleTimeString()}
+      </div>
+    )
+  };
 
   // --- FULLY FUNCTIONAL CALCULATOR COMPONENT (RE-STYLED TO FIT) ---
   const AnimatedCalculator = () => {
@@ -274,7 +274,7 @@ export default function App() {
         setWaitingForSecondOperand(false);
       }
     };
-    
+
     const handleClear = () => {
       setInput('0');
       setFirstOperand(null);
@@ -296,7 +296,7 @@ export default function App() {
           {input}
         </div>
         <div className="grid grid-cols-4 gap-1">
-          {['7','8','9','/','4','5','6','x','1','2','3','-','C','0','=','+'].map(btn => (
+          {['7', '8', '9', '/', '4', '5', '6', 'x', '1', '2', '3', '-', 'C', '0', '=', '+'].map(btn => (
             <button key={btn} onClick={() => handleClick(btn)} className="bg-gray-500 text-white h-7 flex items-center justify-center border border-black shadow-[2px_2px_0px_#000] text-xs active:shadow-none active:translate-x-0.5 active:translate-y-0.5 transition-transform duration-100">
               {btn}
             </button>
@@ -305,8 +305,8 @@ export default function App() {
       </div>
     );
   };
-  
-    const StaticComponent = ({bgColor, children}) => <div className={`${bgColor} h-full p-2 rounded-b-sm`}>{children}</div>;
+
+  const StaticComponent = ({ bgColor, children }) => <div className={`${bgColor} h-full p-2 rounded-b-sm`}>{children}</div>;
 
 
   const backgroundTabs = [
@@ -320,7 +320,7 @@ export default function App() {
     { title: 'NOTES.txt', component: <StaticComponent bgColor="bg-yellow-200" />, svg: <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 21h-18a2 2 0 01-2-2v-16a2 2 0 012-2h18a2 2 0 012 2v16a2 2 0 01-2 2zM12 6h4v2h-4v-2zM8 6h2v2h-2v-2zM8 10h8v2h-8v-2zM8 14h8v2h-8v-2z" /></svg>, top: '5%', left: '30%', rotate: '4deg' },
     { title: 'MUSIC.mp3', component: <StaticComponent bgColor="bg-red-300" />, svg: <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55c-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4V7h4V3h-6z" /></svg>, bottom: '25%', left: '2%', rotate: '8deg' },
     { title: 'PHOTOS.jpg', component: <StaticComponent bgColor="bg-purple-300" />, svg: <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" /></svg>, top: '65%', left: '25%', rotate: '-3deg' },
-];
+  ];
 
 
   const themeClasses = {
@@ -359,23 +359,19 @@ export default function App() {
           <div className={`flex items-center justify-between p-1 border-b-2 cursor-move ${themeClasses.titleBar}`}>
             <span className="text-white font-bold tracking-wider text-xs pl-1 flex items-center gap-1.5 font-pixel">{tab.svg}{tab.title}</span>
             <div className="flex gap-0.5">
-               <button className={`h-4 w-4 border-2 flex justify-center items-center text-xs font-bold ${themeClasses.titleBarButton} shadow-none`}>☐</button>
-               <button className={`h-4 w-4 border-2 flex justify-center items-center text-xs font-bold ${themeClasses.titleBarButton} shadow-none`}>X</button>
+              <button className={`h-4 w-4 border-2 flex justify-center items-center text-xs font-bold ${themeClasses.titleBarButton} shadow-none`}>☐</button>
+              <button className={`h-4 w-4 border-2 flex justify-center items-center text-xs font-bold ${themeClasses.titleBarButton} shadow-none`}>X</button>
             </div>
           </div>
           {tab.component && <div className="w-full h-40 mt-1">{tab.component}</div>}
         </div>
       ))}
-      
+
       <div className={`w-full max-w-4xl border-4 rounded-sm overflow-hidden flex flex-col min-h-[600px] h-[90vh] relative z-20 transition-all duration-500 ${themeClasses.window} glass-morphism`}>
         <div className={`flex items-center justify-between p-1 border-b-4 cursor-move ${themeClasses.titleBar}`}>
           <span className="text-white font-bold tracking-wider text-xl pl-2 font-pixel">inwoq.exe</span>
-          <div className="flex gap-1">
-            <button className={`h-5 w-5 border-2 flex justify-center items-center text-sm font-bold transform hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-100 ${themeClasses.titleBarButton}`}>☐</button>
-            <button className={`h-5 w-5 border-2 flex justify-center items-center text-sm font-bold transform hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-100 ${themeClasses.titleBarButton}`}>X</button>
-          </div>
         </div>
-        
+
         <div className="p-6 md:p-8 flex-grow scroll-container">
           <header className='flex justify-between items-center mb-16'>
             <h1 className='text-3xl font-bold transition-all duration-300 transform hover:scale-110 var-bounce font-pixel'>inwoq.</h1>
@@ -386,7 +382,7 @@ export default function App() {
               </button>
             </div>
           </header>
-          
+
           <main className='main-heading-anim font-pixel font-bold flex flex-col items-center justify-center text-2xl sm:text-3xl md:text-4xl text-center mb-16 h-32'>
             <h2 className="leading-tight">Ready to take on your</h2>
             <h2 className="leading-tight h-16">
@@ -394,7 +390,7 @@ export default function App() {
               <span className={`animate-blink border-r-4 ${themeClasses.typingCursor}`}></span> Website?
             </h2>
           </main>
-          
+
           <div className="flex justify-center mb-20 text-center challenge-box-anim">
             <p className={`text-lg md:text-xl font-pixel font-bold p-4 md:p-6 border-4 ${themeClasses.formContainer}`}>
               We are ready to take on your <span className="text-lime-500">challenge!</span>
