@@ -24,40 +24,25 @@ export default function App() {
     setIsDarkMode(!isDarkMode);
   };
 
-  // --- UPDATED: Function to handle form submission to the new backend ---
-  const handleSubmit = async (event) => {
+  // --- UPDATED: Function to handle form submission via mailto ---
+  const handleSubmit = (event) => {
     event.preventDefault();
-    setFormStatus('sending');
     const form = event.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    try {
-      // This URL points to the backend server you will create.
-      const response = await fetch('https://var-backend-yhov.onrender.com/api/send', { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+    const subject = encodeURIComponent("New Project Inquiry from " + data.name);
+    const body = encodeURIComponent(
+      "Name: " + data.name + "\n" +
+      "Email: " + data.email + "\n\n" +
+      "Message:\n" + data.message
+    );
 
-      const result = await response.json();
+    window.location.href = `mailto:contact@inwoq.com?subject=${subject}&body=${body}`;
 
-      if (response.ok) {
-        setFormStatus('success');
-        form.reset();
-        setTimeout(() => setFormStatus(null), 5000);
-      } else {
-        console.error('Submission failed:', result.message);
-        setFormStatus('error');
-        setTimeout(() => setFormStatus(null), 5000);
-      }
-    } catch (err) {
-      console.error('An error occurred:', err);
-      setFormStatus('error');
-      setTimeout(() => setFormStatus(null), 5000);
-    }
+    setFormStatus('success');
+    form.reset();
+    setTimeout(() => setFormStatus(null), 5000);
   };
 
 
@@ -174,7 +159,7 @@ export default function App() {
     };
 
     const AnimatedTextEditor = () => {
-        const lines = ["// Initializing portfolio...", "const name = 'VAR';", "const skills = ['React', 'GSAP', 'Tailwind'];", "function createAwesomeSite() {", "  return 'Done!';", "}"];
+        const lines = ["// Initializing portfolio...", "const name = 'inwoq';", "const skills = ['React', 'GSAP', 'Tailwind'];", "function createAwesomeSite() {", "  return 'Done!';", "}"];
         const [currentLine, setCurrentLine] = useState("");
         const [lineIndex, setLineIndex] = useState(0);
         useEffect(() => {
@@ -384,7 +369,7 @@ export default function App() {
       
       <div className={`w-full max-w-4xl border-4 rounded-sm overflow-hidden flex flex-col min-h-[600px] h-[90vh] relative z-20 transition-all duration-500 ${themeClasses.window} glass-morphism`}>
         <div className={`flex items-center justify-between p-1 border-b-4 cursor-move ${themeClasses.titleBar}`}>
-          <span className="text-white font-bold tracking-wider text-xl pl-2 font-pixel">VAR.exe</span>
+          <span className="text-white font-bold tracking-wider text-xl pl-2 font-pixel">inwoq.exe</span>
           <div className="flex gap-1">
             <button className={`h-5 w-5 border-2 flex justify-center items-center text-sm font-bold transform hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-100 ${themeClasses.titleBarButton}`}>☐</button>
             <button className={`h-5 w-5 border-2 flex justify-center items-center text-sm font-bold transform hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-100 ${themeClasses.titleBarButton}`}>X</button>
@@ -393,7 +378,7 @@ export default function App() {
         
         <div className="p-6 md:p-8 flex-grow scroll-container">
           <header className='flex justify-between items-center mb-16'>
-            <h1 className='text-3xl font-bold transition-all duration-300 transform hover:scale-110 var-bounce font-pixel'>VAR.</h1>
+            <h1 className='text-3xl font-bold transition-all duration-300 transform hover:scale-110 var-bounce font-pixel'>inwoq.</h1>
             <div className='flex items-center gap-4 md:gap-6 text-lg'>
               <a href="#contact" onClick={handleNavClick} className={`font-mono transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 ${themeClasses.navLink}`}>Contact</a>
               <button onClick={toggleTheme} title="Toggle Theme" className={`relative p-2 border-2 font-bold transition-all duration-300 text-base uppercase transform hover:translate-x-1 hover:translate-y-1 active:translate-x-1 active:translate-y-1 ${themeClasses.button}`}>
@@ -440,7 +425,7 @@ export default function App() {
         </div>
 
         <footer className={`flex justify-center items-center p-3 text-sm sm:text-base font-pixel border-t-4 ${themeClasses.footer}`}>
-          ©{new Date().getFullYear()} Var India, Inc. All Rights Reserved.
+          ©{new Date().getFullYear()} inwoq India, Inc. All Rights Reserved.
         </footer>
       </div>
     </div>
